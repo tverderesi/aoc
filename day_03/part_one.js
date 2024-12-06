@@ -3,7 +3,6 @@ const inputList = fs.readFileSync("input.txt").toString();
 
 const findRegex = /mul\((\d+),(\d+)\)/g;
 const matches = Array.from(inputList.matchAll(findRegex)).map((match) => [
-  match[0],
   match[1],
   match[2],
 ]);
