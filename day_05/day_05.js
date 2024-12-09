@@ -28,25 +28,18 @@ const validatePages = ({ rules, pages }) => {
   return true;
 };
 
-const validateAndFixPages = ({ rules, pages }) => {
-  console.log(pages);
+const fixPageOrder = ({ rules, pages }) => {
   const pageAsArray = pages.split(",");
-  let correctedPages = pageAsArray;
-  for (const rule of rules) {
-    const [before, after] = splitRules(rule);
-    const indexOfBefore = pageAsArray.indexOf(before);
-    const indexOfAfter = pageAsArray.indexOf(after);
-    const valid = indexOfBefore < indexOfAfter;
-    if (!valid) {
-      correctedPages[indexOfAfter] = before;
-      correctedPages[indexOfBefore] = after;
-      validateAndFixPages({
-        rules,
-        pages: correctedPages.join(","),
-      });
+  pageAsArray.sort((a, b) => {
+    for (const rule of rules) {
+      const [before, after] = splitRules(rule);
+      if (before === a && after === b) return -1;
+      if (before === b && after === a) return 1;
     }
-  }
-  return { correctedPages };
+    return 0;
+  });
+
+  return pageAsArray;
 };
 
 const main = (input) => {
@@ -66,20 +59,21 @@ const main = (input) => {
 const main_two = (input) => {
   const { pages, rules } = sanitizeInput(input);
   let cumSum = 0;
-
   for (const page of pages) {
     const filteredRules = filterApplyableRules({ rules, pages: page });
-    const { correctedPages } = validateAndFixPages({
-      rules: filteredRules,
-      pages: page,
-    });
-    const pageAsArray = correctedPages;
-    const middleIndex = Math.floor((pageAsArray.length - 1) / 2);
-    cumSum += Number(pageAsArray[middleIndex]);
+    if (!validatePages({ rules: filteredRules, pages: page })) {
+      const fixedPage = fixPageOrder({
+        rules: filteredRules,
+        pages: page,
+      });
+      const middleIndex = Math.floor((fixedPage.length - 1) / 2);
+      cumSum += Number(fixedPage[middleIndex]);
+    }
   }
   return cumSum;
 };
 
-// console.log(main_two(test) - main(test));
-console.log(main_two(input) - main(input));
-// console.log(validateAndFixPages({ rules: filteredRules, pages: pages[3] }));
+console.log(`Part One -> test: ${main(test)}`);
+console.log(`Part One -> input: ${main(input)}`);
+console.log(`Part Two -> test: ${main_two(test)}`);
+console.log(`Part Two -> input: ${main_two(input)}`);
