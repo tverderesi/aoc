@@ -1,5 +1,5 @@
-const fetchInput = require("../util/fetchInput");
-const splitIntoGrid = require("../util/splitIntoGrid");
+const fetchInput = require("../../util/fetchInput");
+const splitIntoGrid = require("../../util/splitIntoGrid");
 
 const applyRule = (array) => {
   const newArray = [];
