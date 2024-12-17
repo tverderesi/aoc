@@ -50,6 +50,7 @@ const main = (input) => {
   const compressedFile = compactFile(uncompressedFile);
   return calculateHash(compressedFile);
 };
-
+console.time("lol");
 console.log(main(test));
 console.log(main(input));
+console.timeEnd("lol");
