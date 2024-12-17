@@ -1,0 +1,32 @@
+[
+  {
+    "string": "ugknbfddgicrmopn",
+    "doubleLetters": true,
+    "threeVowels": true,
+    "legalSequence": true
+  },
+  {
+    "string": "aaa",
+    "doubleLetters": true,
+    "threeVowels": true,
+    "legalSequence": true
+  },
+  {
+    "string": "jchzalrnumimnmhp",
+    "doubleLetters": false,
+    "threeVowels": true,
+    "legalSequence": true
+  },
+  {
+    "string": "haegwjzuvuyypxyu",
+    "doubleLetters": true,
+    "threeVowels": true,
+    "legalSequence": false
+  },
+  {
+    "string": "dvszwmarrgswjxmb",
+    "doubleLetters": true,
+    "threeVowels": false,
+    "legalSequence": true
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "string": "qjhvhtzxzqqjkmpb",
+    "pairTwice": true,
+    "spacedLetters": true
+  },
+  {
+    "string": "xxyxx",
+    "pairTwice": true,
+    "spacedLetters": true
+  },
+  {
+    "string": "uurcxstgmygtbstg",
+    "pairTwice": true,
+    "spacedLetters": false
+  },
+  {
+    "string": "ieodomkazucvgmuy",
+    "pairTwice": false,
+    "spacedLetters": true
+  }
+]
