@@ -28,8 +28,47 @@ const uniqueCitiesArray = (input) => {
 };
 
 const main = (input) => {
-  const uniqueCities = uniqueCitiesArray(input).sort();
-  console.log(uniqueCities);
+  const distanceArray = input.map((line) => distanceLines(line));
+  const queue = uniqueCitiesArray(input).sort();
+  const weightsMatrix = {};
+  queue.forEach(
+    (item) => (weightsMatrix[item] = { visited: false, weight: Infinity })
+  );
+
+  //first iteration will start by choosing the smallest distance
+  const firstCity = distanceArray.sort((a, b) => a.distance - b.distance)[0]
+    .cityOne;
+
+  //setting weight to firstCity to Zero.
+  weightsMatrix[firstCity]["weight"] = 0;
+
+  //set visited true as it does not need relaxation
+  weightsMatrix[firstCity]["visited"] = true;
+
+  //remove city from queue
+  queue.splice(
+    queue.findIndex((item) => item === firstCity),
+    1
+  );
+
+  //
+  //relaxtion step
+  const lol = queue.map((_, queueIdx) => {
+    return distanceArray.find(
+      (item) =>
+        (item.cityOne === firstCity && item.cityTwo === queue[queueIdx]) ||
+        (item.cityTwo === firstCity && item.cityOne === queue[queueIdx])
+    );
+  });
+  lol.map((item, _, arr) => {
+    const cityToSet = item.cityOne !== firstCity ? item.cityOne : item.cityTwo;
+    const weightToSet = arr.filter((item) => {
+      return item.cityOne === cityToSet || item.cityTwo === cityToSet;
+    })[0]["distance"];
+
+    weightsMatrix[cityToSet]["weight"] = weightToSet;
+  });
+  return weightsMatrix;
 };
 
 measureTime(() => main(input), "partOne");
